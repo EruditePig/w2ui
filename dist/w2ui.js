@@ -5723,9 +5723,11 @@ w2utils.event = {
                 last_logic  = logic;
                 for (var i = 0; i < field.length; i++) {
                     var data = field[i];
-                    if (typeof data.value == 'number') data.operator = 'is';
-                    if (typeof data.value == 'string') data.operator = this.textSearch;
-                    if ($.isArray(data.value)) data.operator = 'in'
+                    if (!'operator' in data){
+                        if (typeof data.value == 'number') data.operator = 'is';
+                        if (typeof data.value == 'string') data.operator = this.textSearch;
+                        if ($.isArray(data.value)) data.operator = 'in'
+                    }
                     // merge current field and search if any
                     searchData.push(data);
                 }
